@@ -3,6 +3,7 @@ from turtle import screensize
 
 import pygame
 
+import shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from circleshape import CircleShape
@@ -51,6 +52,13 @@ def main():
                 log_event("player_hit")
                 print ("Game over!")
                 sys.exit()
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    log_event("asteroid_shot")
+                    pygame.sprite.Sprite.kill(shot)
+                    asteroid.split()
+
         for item in drawable:
             item.draw(screen)
         pygame.display.flip()
